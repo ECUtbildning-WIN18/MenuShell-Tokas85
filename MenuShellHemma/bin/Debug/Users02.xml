@@ -1,0 +1,10 @@
+<Users>
+
+    <User username="john" password="john" role="receptionist"></User>
+
+    <User username="jane" password="jane" role="veterinary"></User>
+
+    <User username="jim" password="jim" role="sysadmin"></User>
+
+</Users>
+    
