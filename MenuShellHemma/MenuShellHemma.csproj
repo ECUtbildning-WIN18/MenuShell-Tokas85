@@ -43,8 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\AuthenticationService.cs" />
+    <Compile Include="Domain\IAuthenticationService.cs" />
+    <Compile Include="Domain\IUserLoader.cs" />
+    <Compile Include="Domain\User.cs" />
+    <Compile Include="Domain\UserLoader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\AdminAddUserView.cs" />
+    <Compile Include="View\AdminDeleteUserView.cs" />
+    <Compile Include="View\AdminMainView.cs" />
+    <Compile Include="View\LoginView.cs" />
+    <Compile Include="View\ReceptionistMainView.cs" />
+    <Compile Include="View\VeterinaryMainView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

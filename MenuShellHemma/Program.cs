@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MenuShellHemma.View;
 
 namespace MenuShellHemma
 {
@@ -10,6 +6,8 @@ namespace MenuShellHemma
     {
         static void Main(string[] args)
         {
+            var loginView = new LoginView();
+            loginView.Display();
         }
     }
 }
