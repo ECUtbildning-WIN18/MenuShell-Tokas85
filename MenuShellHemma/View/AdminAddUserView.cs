@@ -1,16 +1,15 @@
 ﻿using System;
+using System.Threading;
 using System.Xml.Linq;
 
 namespace MenuShellHemma.View
 {
-    class AdminAddUserView //: UserLoader , IUserLoader
+    class AdminAddUserView
     {
-        public virtual void Display()
+        public void Display()
         {
-
-
+            var adminMainView = new AdminMainView();
             var doc = XDocument.Load("Users.xml");
-
             var root = doc.Root;
 
 
@@ -23,19 +22,43 @@ namespace MenuShellHemma.View
             Console.Write("Role: ");
             var role = Console.ReadLine();
             Console.WriteLine();
-            Console.WriteLine("Is this correct? (Y)es (N)o ");
-            Console.WriteLine();
-            Console.ReadKey();
+
+            var yesOrNo = true;
+            while (yesOrNo)
+            {
+                Console.WriteLine("Is this correct? (Y)es (N)o ");
+                var keyInfo = Console.ReadKey();
+                if (keyInfo.Key == ConsoleKey.Y)
+                {
+                    root.Add(new XElement("User",
+                        new XAttribute("username", username),
+                        new XAttribute("password", password),
+                        new XAttribute("role", role)));
+                    doc.Save("Users.xml");
+                    Console.WriteLine("\nNew user added!");
+                    Thread.Sleep(1000);
+                    Console.WriteLine("Returning to menu..");
+                    Thread.Sleep(1000);
+                    Console.Clear();
+                    adminMainView.Display();
+                }
+                else if (keyInfo.Key == ConsoleKey.N)
+                {
+                    Console.WriteLine("\nCancel..");
+                    Thread.Sleep(1000);
+                    Console.WriteLine("Returning to menu..");
+                    Thread.Sleep(1000);
+                    Console.Clear();
+                    adminMainView.Display();
+                }
+                else
+                {
+                    Console.WriteLine("\nInvalid selection!");
+                    Thread.Sleep(1000);
+                }
 
 
-            root.Add(new XElement("User",
-                new XAttribute("username", username), 
-                new XAttribute("password", password), 
-                new XAttribute("role", role)));
-            
-            
-
-            doc.Save("Users.xml");
+            }
         }
     }
 }

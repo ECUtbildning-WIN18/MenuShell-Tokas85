@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Xml.Linq;
 
 namespace MenuShellHemma.View
 {
     class AdminDeleteUserView
     {
-        public virtual void Display()
+        public void Display()
         {
+            var adminMainView = new AdminMainView();
+
             Console.WriteLine("# Delete user");
             Console.WriteLine();
 
@@ -23,10 +26,39 @@ namespace MenuShellHemma.View
             Console.WriteLine();
             Console.Write("Remove username: ");
             var username = Console.ReadLine();
+            Console.WriteLine();
 
-            doc.Descendants("User").Where(p => p.Attribute("username").Value == username).FirstOrDefault().Remove();
-
-            doc.Save("Users.xml");
+            var yesOrNo = true;
+            while (yesOrNo)
+            {
+                Console.WriteLine("Are you sure? (Y)es (N)o");
+                var keyInfo = Console.ReadKey();
+                if (keyInfo.Key == ConsoleKey.Y)
+                {
+                    doc.Descendants("User").Where(p => p.Attribute("username").Value == username).FirstOrDefault().Remove();
+                    doc.Save("Users.xml");
+                    Console.WriteLine("\nRemoving user..");
+                    Thread.Sleep(1000);
+                    Console.WriteLine("Returning to menu..");
+                    Thread.Sleep(1000);
+                    Console.Clear();
+                    adminMainView.Display();
+                }
+                else if (keyInfo.Key == ConsoleKey.N)
+                {
+                    Console.WriteLine("\nCancel..");
+                    Thread.Sleep(1000);
+                    Console.WriteLine("Returning to menu..");
+                    Thread.Sleep(1000);
+                    Console.Clear();
+                    adminMainView.Display();
+                }
+                else
+                {
+                    Console.WriteLine("\nInvalid selection!");
+                    Thread.Sleep(1000);
+                }
+            }
 
         }
     }
